@@ -2,242 +2,210 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EXP — Official Discord</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>EXP Official Website</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root{
-  --bg:#050914;
-  --card:#151c2c;
-  --glow1:#6dd5ff;
-  --glow2:#a855f7;
+  --bg:#070d1c;
+  --card:#1a2c44;
+  --input:#263a57;
+  --accent:#61c7ff;
+  --accent2:#4aaeff;
   --text:#eaf2ff;
   --muted:#9fb4cc;
+  --green:#6dff9c;
 }
 
-*{box-sizing:border-box;font-family:'Inter',system-ui}
+*{ box-sizing:border-box; font-family:'Inter',-apple-system,BlinkMacSystemFont; margin:0; padding:0;}
 
 body{
-  margin:0;
-  background:radial-gradient(circle at top,#0b1230,#050914);
+  background:linear-gradient(180deg,#050914,#0b1220);
   color:var(--text);
-  overflow-x:hidden;
+  display:flex;
+  justify-content:center;
+  min-height:100vh;
 }
 
 .container{
-  max-width:1100px;
-  margin:auto;
-  padding:80px 20px 120px;
+  width:390px;
+  padding:24px 16px 40px;
 }
 
-/* HERO */
-.hero{
-  text-align:center;
-  margin-bottom:80px;
-}
-
-.logo{
-  display:inline-flex;
-  align-items:center;
-  gap:14px;
-  padding:18px 28px;
-  border-radius:24px;
-  background:linear-gradient(135deg,var(--glow2),var(--glow1));
-  box-shadow:0 0 50px rgba(140,120,255,.6);
-  font-size:32px;
-  font-weight:800;
-}
-
-.stats{
-  margin-top:24px;
+nav{
   display:flex;
-  justify-content:center;
-  gap:30px;
-  font-size:18px;
+  justify-content:flex-end;
+  margin-bottom:24px;
 }
 
-.join-btn{
-  margin-top:36px;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:18px 38px;
-  border-radius:30px;
-  font-size:20px;
-  font-weight:700;
-  color:#001d3d;
-  background:linear-gradient(135deg,var(--glow1),var(--glow2));
-  box-shadow:0 0 40px rgba(120,180,255,.7);
-  text-decoration:none;
+nav button{
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+  color:#002033;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
 }
 
-/* FEATURES */
-.section-title{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:40px;
+.page{
+  display:none;
+  animation:fadeIn .5s ease;
 }
 
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:26px;
-}
+.page.active{display:block;}
 
-.card{
-  background:linear-gradient(180deg,#1a2236,#12192a);
-  border-radius:26px;
-  padding:26px;
-  box-shadow:0 0 40px rgba(120,160,255,.15);
-  position:relative;
-}
+@keyframes fadeIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
 
-.card h3{
-  margin-top:0;
-  font-size:22px;
-}
+h1{text-align:center; font-size:20px; margin-bottom:26px; opacity:.85;}
+p{text-align:center; opacity:.8; margin-bottom:12px;}
+a{color:var(--accent); text-decoration:none; transition:.2s;}
+a:hover{text-decoration:underline;}
 
-.card ul{
-  padding-left:0;
-  list-style:none;
-  line-height:1.9;
-  color:var(--muted);
-}
+label{font-size:13px; color:var(--muted); margin-bottom:6px; display:block;}
+input{width:100%; padding:16px; border-radius:14px; border:none; background:var(--input); color:var(--text); font-size:18px; outline:none;}
 
-/* STATS */
-.footer-stats{
-  display:flex;
-  justify-content:space-around;
-  margin:90px 0 60px;
-  text-align:center;
-}
+.section{margin-bottom:22px;}
+.quick{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
 
-.footer-stats div{
-  font-size:18px;
-}
+button.calcBtn{padding:14px; border-radius:14px; border:none; background:#2b3b56; color:var(--text); font-size:16px; transition:.25s;}
+button.calcBtn:active{transform:scale(.96);}
+button.calcBtn.active{background:linear-gradient(135deg,var(--accent2),var(--accent)); color:#002033; font-weight:700;}
 
-/* FINAL CTA */
-.final{
-  text-align:center;
-}
+.result{margin-top:28px; background:linear-gradient(180deg,#1b334f,#1e4060); border-radius:24px; padding:22px; box-shadow:0 0 40px rgba(80,170,255,.15);}
+.row{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+.value{font-weight:700; display:flex; align-items:center; gap:8px;}
+.green{color:var(--green);}
+.final{font-size:28px; font-weight:800; color:#6fd6ff; text-shadow:0 0 18px rgba(100,200,255,.6); animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.gem{width:18px; height:18px; filter:drop-shadow(0 0 6px rgba(120,200,255,.7));}
 
-.final h2{
-  font-size:32px;
-  margin-bottom:30px;
-}
-
-/* PARTICLES */
-.particle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  background:#7dd3fc;
-  border-radius:50%;
-  opacity:.4;
-  animation:float 18s infinite linear;
-}
-
-@keyframes float{
-  from{transform:translateY(0)}
-  to{transform:translateY(-120vh)}
-}
 </style>
 </head>
 
 <body>
-
-<script>
-/* 🔗 DISCORD INVITE LINK HIER EINFÜGEN */
-const DISCORD_INVITE = "https://discord.gg/exp";
-</script>
-
-<!-- PARTICLES -->
-<script>
-for(let i=0;i<40;i++){
-  const p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"%";
-  p.style.top=Math.random()*120+"vh";
-  p.style.animationDuration=10+Math.random()*20+"s";
-  document.body.appendChild(p);
-}
-</script>
-
 <div class="container">
+  <nav>
+    <button id="switchBtn">Interest Calculator</button>
+  </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="logo">💎 EXP</div>
-
-    <div class="stats">
-      <span>💎 75B+ Gems Daily</span>
-      <span>👥 25,000+ Members</span>
-    </div>
-
-    <a class="join-btn" id="joinTop">🚀 JOIN DISCORD</a>
+  <!-- Home Page -->
+  <div class="page active" id="home">
+    <h1>Welcome to EXP Official Website</h1>
+    <p>This is the main page of EXP. Here you can find official information and links.</p>
+    <p><a href="https://github.com/Ripeax5677/ExpWebsite" target="_blank">GitHub Repository</a></p>
+    <p><a href="https://discord.gg/YOURDISCORDLINK" target="_blank">Join our Discord</a></p>
   </div>
 
-  <!-- FEATURES -->
-  <h2 class="section-title">✨ What you can do on EXP ✨</h2>
+  <!-- Calculator Page -->
+  <div class="page" id="calculator">
+    <h1>Interest Calculator</h1>
 
-  <div class="cards">
-
-    <div class="card">
-      <h3>💎 INVITES</h3>
-      <ul>
-        <li>🎉 Daily Invite Events</li>
-        <li>🥇 Top 10 — 10,000,000,000 Gems</li>
-        <li>🥈 Top 25 — 7,500,000,000 Gems</li>
-        <li>🙂 Top 50 — 2,500,000,000 Gems</li>
-        <li>⏰ Event runs every day</li>
-      </ul>
+    <div class="section">
+      <label>Amount</label>
+      <input id="amount" type="number" value="5000000000">
     </div>
 
-    <div class="card">
-      <h3>👥 COMMUNITY</h3>
-      <ul>
-        <li>👤 25,000+ Members</li>
-        <li>🆓 Earn Free Gems</li>
-        <li>🎁 5,000+ Giveaways weekly</li>
-        <li>⭐ Ranks & Levels</li>
-        <li>🎉 Daily Rewards</li>
-      </ul>
+    <div class="section">
+      <label>Daily Interest Rate (%)</label>
+      <input id="rate" type="number" value="0.25" step="0.01">
     </div>
 
-    <div class="card">
-      <h3>🏦 BANK</h3>
-      <ul>
-        <li>💎 Gems as Currency</li>
-        <li>📈 Daily Interest: 0.25%</li>
-        <li>🧮 Compound Growth</li>
-        <li>🎮 Exchange for in-game rewards</li>
-        <li>🕹️ 10+ Roblox Games supported</li>
-      </ul>
+    <div class="section">
+      <label>Duration (Days)</label>
+      <input id="days" type="number" value="30">
     </div>
 
-  </div>
+    <div class="section">
+      <label>Quick Select Duration</label>
+      <div class="quick">
+        <button class="calcBtn" onclick="setDays(30)">30 Days</button>
+        <button class="calcBtn" onclick="setDays(60)">60 Days</button>
+        <button class="calcBtn" onclick="setDays(90)">90 Days</button>
+        <button class="calcBtn" onclick="setDays(180)">180 Days</button>
+        <button class="calcBtn" onclick="setDays(365)">1 Year</button>
+        <button class="calcBtn active" onclick="setDays(730)">2 Years</button>
+      </div>
+    </div>
 
-  <!-- STATS -->
-  <div class="footer-stats">
-    <div>💎 75B+ Gems<br>distributed daily</div>
-    <div>👥 25,000+<br>Members</div>
-    <div>🎁 5,000+<br>Giveaways weekly</div>
-  </div>
+    <div class="result">
+      <div class="row">
+        <span>Amount</span>
+        <span class="value">
+          <svg class="gem" viewBox="0 0 24 24" fill="url(#g)">
+            <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9be7ff"/><stop offset="1" stop-color="#4aaeff"/></linearGradient></defs>
+            <polygon points="12,2 22,9 17,22 7,22 2,9"/>
+          </svg>
+          <span id="resAmount"></span>
+        </span>
+      </div>
 
-  <!-- FINAL CTA -->
-  <div class="final">
-    <h2>Ready to join EXP?</h2>
-    <a class="join-btn" id="joinBottom">💬 JOIN DISCORD</a>
-  </div>
+      <div class="row">
+        <span>Earned</span>
+        <span class="value green">+ <span id="resEarned"></span></span>
+      </div>
 
+      <div class="row">
+        <span>Final</span>
+        <span class="final value">
+          <svg class="gem" viewBox="0 0 24 24" fill="url(#g)">
+            <polygon points="12,2 22,9 17,22 7,22 2,9"/>
+          </svg>
+          <span id="resFinal"></span>
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-document.querySelectorAll("#joinTop,#joinBottom")
-  .forEach(b=>b.href=DISCORD_INVITE);
-</script>
+// Tab switch logic
+const homePage = document.getElementById('home');
+const calcPage = document.getElementById('calculator');
+const switchBtn = document.getElementById('switchBtn');
 
+switchBtn.addEventListener('click', () => {
+  if(homePage.classList.contains('active')){
+    homePage.classList.remove('active');
+    calcPage.classList.add('active');
+    switchBtn.textContent = "Home";
+  } else {
+    calcPage.classList.remove('active');
+    homePage.classList.add('active');
+    switchBtn.textContent = "Interest Calculator";
+  }
+});
+
+// Calculator logic
+const a=document.getElementById("amount"),
+r=document.getElementById("rate"),
+d=document.getElementById("days"),
+ra=document.getElementById("resAmount"),
+re=document.getElementById("resEarned"),
+rf=document.getElementById("resFinal");
+
+function fmt(n){return Number(n).toLocaleString("en-US");}
+
+function calc(){
+  const A=+a.value,R=+r.value/100,D=+d.value;
+  const F=A*Math.pow(1+R,D);
+  ra.textContent=fmt(A);
+  re.textContent=fmt(Math.floor(F-A));
+  rf.textContent=fmt(Math.floor(F));
+}
+
+function setDays(x){
+  d.value=x;
+  document.querySelectorAll(".quick button").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
+  calc();
+}
+
+[a,r,d].forEach(i=>i.oninput=calc);
+calc();
+</script>
 </body>
 </html>
