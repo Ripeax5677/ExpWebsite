@@ -12,6 +12,11 @@
   font-family:'Inter',system-ui;
 }
 
+h1,h2,h3,.logo{
+  font-family:'Space Grotesk',system-ui;
+  letter-spacing:.3px;
+}
+
 body{
   margin:0;
   background:radial-gradient(circle at top,#0b1230,#050914);
@@ -26,7 +31,7 @@ body{
   padding:100px 20px 120px;
 }
 
-/* LOGO TOP LEFT */
+/* LOGO TOP */
 .top-logo{
   position:absolute;
   top:20px;
@@ -36,7 +41,7 @@ body{
 
 .top-logo img{
   height:42px;
-  transition:transform .2s ease, filter .2s ease;
+  transition:transform .2s ease,filter .2s ease;
 }
 
 .top-logo img:hover{
@@ -94,7 +99,7 @@ body{
   background:linear-gradient(135deg,var(--glow1),var(--glow2));
   box-shadow:0 0 40px rgba(120,180,255,.7);
   text-decoration:none;
-  transition:transform .2s ease, box-shadow .2s ease;
+  transition:.2s ease;
 }
 
 .join-btn:hover{
@@ -120,7 +125,7 @@ body{
   border-radius:26px;
   padding:26px;
   box-shadow:0 0 40px rgba(120,160,255,.15);
-  transition:transform .25s ease, box-shadow .25s ease;
+  transition:.25s ease;
 }
 
 .card:hover{
@@ -128,13 +133,8 @@ body{
   box-shadow:0 0 60px rgba(140,180,255,.3);
 }
 
-.card h3{
-  margin-top:0;
-  font-size:22px;
-}
-
 .card ul{
-  padding-left:0;
+  padding:0;
   list-style:none;
   line-height:1.9;
   color:var(--muted);
@@ -148,15 +148,6 @@ body{
   text-align:center;
   flex-wrap:wrap;
   gap:30px;
-}
-
-.footer-stats div{
-  font-size:18px;
-  transition:transform .2s ease;
-}
-
-.footer-stats div:hover{
-  transform:scale(1.05);
 }
 
 /* FINAL */
@@ -173,8 +164,8 @@ body{
 footer{
   text-align:center;
   margin-top:80px;
-  color:#9fb4cc;
   font-size:14px;
+  color:var(--muted);
 }
 
 /* PARTICLES */
@@ -193,20 +184,21 @@ footer{
   to{transform:translateY(-120vh)}
 }
 
+/* SCROLL REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:.8s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
 /* MOBILE */
-@media(max-width:600px){
-  .logo{
-    font-size:26px;
-    padding:14px 22px;
-  }
-
-  .stats{
-    gap:16px;
-    font-size:16px;
-  }
-
-  .join-btn{
-    font-size:18px;
-    padding:16px 30px;
-  }
+@media(max-width:480px){
+  .stats{flex-direction:column;gap:14px}
+  .footer-stats{flex-direction:column}
+  .logo{font-size:26px;padding:14px 22px}
 }
