@@ -5,14 +5,28 @@
   <title>EXP — Official Discord</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- SEO -->
+  <meta name="description" content="EXP is a powerful Discord community with daily giveaways, invite events and billions of gems distributed every day.">
+  <meta name="keywords" content="EXP Discord, Roblox Gems, Discord Giveaways, Invite Rewards">
+  <meta name="author" content="EXP Team">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="EXP — Official Discord">
+  <meta property="og:description" content="Join EXP to earn gems, rewards and take part in daily Discord events.">
+  <meta property="og:image" content="IMG_1646.webp">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <script>
-/* 🔗 DISCORD INVITE LINK */
 const DISCORD_INVITE = "https://discord.gg/exp";
 </script>
 
@@ -28,9 +42,9 @@ for(let i=0;i<40;i++){
 }
 </script>
 
-<!-- LOGO OBEN LINKS -->
-<div style="position:absolute;top:20px;left:20px;z-index:10;">
-  <img src="IMG_1646.webp" alt="EXP Logo" style="height:42px;">
+<!-- LOGO TOP LEFT -->
+<div class="top-logo">
+  <img src="IMG_1646.webp" alt="EXP Logo">
 </div>
 
 <div class="container">
@@ -101,34 +115,50 @@ for(let i=0;i<40;i++){
   </div>
 
   <!-- COPYRIGHT -->
-  <footer style="text-align:center;margin-top:80px;color:#9fb4cc;font-size:14px;">
+  <footer>
     © 2026 EXP. All rights reserved.
   </footer>
 
 </div>
 
-<!-- BUTTON LINKS -->
+<!-- LINKS -->
 <script>
 document.querySelectorAll("#joinTop,#joinBottom")
   .forEach(b => b.href = DISCORD_INVITE);
 </script>
 
-<!-- COUNTER ANIMATION -->
+<!-- COUNTER -->
 <script>
-document.querySelectorAll(".count").forEach(counter => {
-  let target = +counter.dataset.target;
-  let value = 0;
-  let step = target / 120;
-
-  let interval = setInterval(() => {
-    value += step;
-    if (value >= target) {
-      counter.textContent = target.toLocaleString();
-      clearInterval(interval);
-    } else {
-      counter.textContent = Math.floor(value).toLocaleString();
+document.querySelectorAll(".count").forEach(counter=>{
+  let target=+counter.dataset.target;
+  let value=0;
+  let step=target/120;
+  let i=setInterval(()=>{
+    value+=step;
+    if(value>=target){
+      counter.textContent=target.toLocaleString();
+      clearInterval(i);
+    }else{
+      counter.textContent=Math.floor(value).toLocaleString();
     }
-  }, 20);
+  },20);
+});
+</script>
+
+<!-- SCROLL REVEAL -->
+<script>
+const reveals=document.querySelectorAll(".card,.section-title,.footer-stats,.final");
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      x.target.classList.add("show");
+      obs.unobserve(x.target);
+    }
+  });
+},{threshold:.15});
+reveals.forEach(el=>{
+  el.classList.add("reveal");
+  obs.observe(el);
 });
 </script>
 
