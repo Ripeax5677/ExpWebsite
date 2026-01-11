@@ -12,7 +12,7 @@
 <body>
 
 <script>
-/* 🔗 DISCORD INVITE LINK HIER EINFÜGEN */
+/* 🔗 DISCORD INVITE LINK */
 const DISCORD_INVITE = "https://discord.gg/exp";
 </script>
 
@@ -28,6 +28,11 @@ for(let i=0;i<40;i++){
 }
 </script>
 
+<!-- LOGO OBEN LINKS -->
+<div style="position:absolute;top:20px;left:20px;z-index:10;">
+  <img src="logo.png" alt="EXP Logo" style="height:42px;">
+</div>
+
 <div class="container">
 
   <!-- HERO -->
@@ -35,8 +40,8 @@ for(let i=0;i<40;i++){
     <div class="logo">💎 EXP</div>
 
     <div class="stats">
-      <span>💎 75B+ Gems Daily</span>
-      <span>👥 25,000+ Members</span>
+      <span>💎 <span class="count" data-target="75000000000">0</span> Gems Daily</span>
+      <span>👥 <span class="count" data-target="25000">0</span> Members</span>
     </div>
 
     <a class="join-btn" id="joinTop">🚀 JOIN DISCORD</a>
@@ -84,9 +89,9 @@ for(let i=0;i<40;i++){
 
   <!-- STATS -->
   <div class="footer-stats">
-    <div>💎 75B+ Gems<br>distributed daily</div>
-    <div>👥 25,000+<br>Members</div>
-    <div>🎁 5,000+<br>Giveaways weekly</div>
+    <div>💎 <span class="count" data-target="75000000000">0</span><br>distributed daily</div>
+    <div>👥 <span class="count" data-target="25000">0</span><br>Members</div>
+    <div>🎁 <span class="count" data-target="5000">0</span><br>Giveaways weekly</div>
   </div>
 
   <!-- FINAL CTA -->
@@ -95,11 +100,36 @@ for(let i=0;i<40;i++){
     <a class="join-btn" id="joinBottom">💬 JOIN DISCORD</a>
   </div>
 
+  <!-- COPYRIGHT -->
+  <footer style="text-align:center;margin-top:80px;color:#9fb4cc;font-size:14px;">
+    © 2026 EXP. All rights reserved.
+  </footer>
+
 </div>
 
+<!-- BUTTON LINKS -->
 <script>
 document.querySelectorAll("#joinTop,#joinBottom")
   .forEach(b => b.href = DISCORD_INVITE);
+</script>
+
+<!-- COUNTER ANIMATION -->
+<script>
+document.querySelectorAll(".count").forEach(counter => {
+  let target = +counter.dataset.target;
+  let value = 0;
+  let step = target / 120;
+
+  let interval = setInterval(() => {
+    value += step;
+    if (value >= target) {
+      counter.textContent = target.toLocaleString();
+      clearInterval(interval);
+    } else {
+      counter.textContent = Math.floor(value).toLocaleString();
+    }
+  }, 20);
+});
 </script>
 
 </body>
