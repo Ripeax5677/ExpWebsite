@@ -73,7 +73,7 @@ body{
 .slide-menu{
   position:fixed;
   top:0;
-  right:-320px;
+  right:-320px; /* Start versteckt */
   width:320px;
   height:100vh;
   background:linear-gradient(180deg,#1a2236,#12192a);
@@ -85,13 +85,29 @@ body{
   z-index:60;
   box-shadow:-4px 0 40px rgba(0,0,0,.5);
 }
-.slide-menu.show{right:0;}
-.slide-menu ul{display:flex;flex-direction:column;gap:16px;padding:0;}
-.slide-menu a{color:var(--text);text-decoration:none;font-weight:600;}
-.slide-menu a:hover{color:var(--glow1);}
-.slide-menu .coming{color:var(--muted);cursor:not-allowed;}
+.slide-menu.show{
+  right:0;
+}
+.slide-menu ul{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:0;
+}
+.slide-menu a{
+  color:var(--text);
+  text-decoration:none;
+  font-weight:600;
+}
+.slide-menu a:hover{
+  color:var(--glow1);
+}
+.slide-menu .coming{
+  color:var(--muted);
+  cursor:not-allowed;
+}
 
-/* BACK BUTTON */
+/* BACK BUTTON INSIDE MENU */
 .back-btn{
   background:none;
   border:none;
@@ -239,7 +255,7 @@ footer{
   transform:none;
 }
 
-/* FAQ ACCORDION */
+/* FAQ ACCORDION (für faq.html) */
 .faq{
   margin:80px 0;
 }
@@ -284,10 +300,30 @@ footer{
   color:var(--muted);
 }
 
-/* MOBILE */
+/* MOBILE FIXES */
 @media(max-width:480px){
-  .stats{flex-direction:column;gap:14px}
-  .footer-stats{flex-direction:column}
-  .logo{font-size:26px;padding:14px 22px}
-  .slide-menu{width:100%}
+
+  /* Hero & Stats */
+  .stats{flex-direction:column; gap:14px;}
+  .footer-stats{flex-direction:column;}
+  .logo{font-size:26px;padding:14px 22px;}
+
+  /* Slide Menu mobile */
+  .slide-menu{
+    width:100%;          /* volle Breite auf Handy */
+    right:-100%;         /* komplett versteckt starten */
+  }
+  .slide-menu.show{right:0;} /* eingeblendet */
+  
+  /* Menü-Button oben rechts fixieren */
+  .nav-right{
+    top:16px;
+    right:16px;
+  }
+  
+  .nav-btn{
+    width:44px;
+    height:44px;
+    font-size:20px;
+  }
 }
