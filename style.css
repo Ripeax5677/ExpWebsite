@@ -200,4 +200,61 @@ footer{
   .stats{flex-direction:column;gap:14px}
   .footer-stats{flex-direction:column}
   .logo{font-size:26px;padding:14px 22px}
+
+  
 }
+/* FAQ ACCORDION */
+.faq{
+  margin:80px 0;
+}
+.faq-list{
+  max-width:800px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.faq-item{
+  background:linear-gradient(180deg,#1a2236,#12192a);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 0 30px rgba(120,160,255,.15);
+  transition:.25s ease;
+}
+.faq-item:hover{
+  box-shadow:0 0 50px rgba(140,180,255,.3);
+}
+.faq-item summary{
+  cursor:pointer;
+  font-size:18px;
+  font-weight:600;
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{
+  content:"+";
+  font-size:24px;
+  transition:.25s ease;
+  color:var(--glow1);
+}
+.faq-item[open] summary::after{
+  content:"–";
+}
+.faq-item p{
+  margin-top:12px;
+  line-height:1.7;
+  color:var(--muted);
+}
+/* BACK BUTTON */
+.back-btn{
+  background:none;
+  border:none;
+  color:var(--glow1);
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+.back-btn:hover{color:var(--glow2);}
