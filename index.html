@@ -5,6 +5,17 @@
   <title>EXP — Official Discord</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- SEO -->
+  <meta name="description" content="EXP is a powerful Discord community with daily giveaways, invite events and billions of gems distributed every day.">
+  <meta name="keywords" content="EXP Discord, Roblox Gems, Discord Giveaways, Invite Rewards">
+  <meta name="author" content="EXP Team">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,7 +41,7 @@ for (let i = 0; i < 40; i++) {
   <img src="IMG_1646.webp" alt="EXP Discord Logo">
 </header>
 
-<!-- MODERN NAV BUTTON -->
+<!-- NAV BUTTON -->
 <div class="nav">
   <button class="nav-btn" id="navToggle" aria-label="Open navigation">☰</button>
 </div>
@@ -59,9 +70,48 @@ for (let i = 0; i < 40; i++) {
   <!-- FEATURES -->
   <section>
     <h2 class="section-title">✨ What you can do on EXP ✨</h2>
+
     <div class="cards">
-      <!-- Cards hier -->
+      <article class="card">
+        <h3>💎 INVITES</h3>
+        <ul>
+          <li>🎉 Daily Invite Events</li>
+          <li>🥇 Top 10 — 10,000,000,000 Gems</li>
+          <li>🥈 Top 25 — 7,500,000,000 Gems</li>
+          <li>🙂 Top 50 — 2,500,000,000 Gems</li>
+          <li>⏰ Event runs every day</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>👥 COMMUNITY</h3>
+        <ul>
+          <li>👤 25,000+ Members</li>
+          <li>🆓 Earn Free Gems</li>
+          <li>🎁 5,000+ Giveaways weekly</li>
+          <li>⭐ Ranks & Levels</li>
+          <li>🎉 Daily Rewards</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>🏦 BANK</h3>
+        <ul>
+          <li>💎 Gems as Currency</li>
+          <li>📈 Daily Interest: 0.25%</li>
+          <li>🧮 Compound Growth</li>
+          <li>🎮 Exchange for in-game rewards</li>
+          <li>🕹️ 10+ Roblox Games supported</li>
+        </ul>
+      </article>
     </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="footer-stats">
+    <div>💎 <span class="count" data-target="75000000000">0</span><br>distributed daily</div>
+    <div>👥 <span class="count" data-target="25000">0</span><br>Members</div>
+    <div>🎁 <span class="count" data-target="5000">0</span><br>Giveaways weekly</div>
   </section>
 
   <!-- FINAL CTA -->
@@ -76,12 +126,13 @@ for (let i = 0; i < 40; i++) {
   © 2026 EXP. All rights reserved.
 </footer>
 
-<!-- SCRIPTS -->
+<!-- LINKS -->
 <script>
 document.querySelectorAll("#joinTop,#joinBottom")
   .forEach(b => b.href = DISCORD_INVITE);
 </script>
 
+<!-- COUNTER -->
 <script>
 document.querySelectorAll(".count").forEach(counter => {
   let target = +counter.dataset.target;
@@ -99,8 +150,26 @@ document.querySelectorAll(".count").forEach(counter => {
 });
 </script>
 
+<!-- SCROLL REVEAL -->
 <script>
-// SLIDE MENU TOGGLE
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.15});
+
+document.querySelectorAll(".card,.section-title,.footer-stats,.final")
+  .forEach(el => {
+    el.classList.add("reveal");
+    observer.observe(el);
+  });
+</script>
+
+<!-- NAV SCRIPT -->
+<script>
 const navToggle = document.getElementById("navToggle");
 const slideMenu = document.getElementById("slideMenu");
 const closeMenu = document.getElementById("closeMenu");
