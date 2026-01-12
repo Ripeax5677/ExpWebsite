@@ -2,32 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>EXP FAQ</title>
+  <title>EXP — Official Discord</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<script>
+const DISCORD_INVITE = "https://discord.gg/exp";
+</script>
+
+<!-- PARTICLES -->
+<script>
+for (let i = 0; i < 40; i++) {
+  const p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random() * 100 + "%";
+  p.style.top = Math.random() * 120 + "vh";
+  p.style.animationDuration = 10 + Math.random() * 20 + "s";
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- TOP LOGO -->
 <header class="top-logo">
-  <img src="IMG_1646.webp" alt="EXP Logo">
+  <img src="IMG_1646.webp" alt="EXP Discord Logo">
 </header>
+
+<!-- MODERN NAV BUTTON -->
+<div class="nav">
+  <button class="nav-btn" id="navToggle" aria-label="Open navigation">☰</button>
+</div>
+
+<!-- SLIDE MENU -->
+<nav class="slide-menu" id="slideMenu">
+  <button class="back-btn" id="closeMenu">← Back</button>
+  <ul>
+    <li><a href="faq.html">❓ FAQ</a></li>
+    <li><span class="coming">🚧 More coming soon</span></li>
+  </ul>
+</nav>
 
 <main class="container">
 
-  <section class="faq">
-    <button class="back-btn" onclick="window.location.href='index.html'">← Back to Main Page</button>
-    <h2 class="section-title">❓ FAQ</h2>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="logo">💎 EXP</div>
+    <div class="stats">
+      <span>💎 <span class="count" data-target="75000000000">0</span> Gems Daily</span>
+      <span>👥 <span class="count" data-target="25000">0</span> Members</span>
+    </div>
+    <a class="join-btn" id="joinTop">🚀 JOIN DISCORD</a>
+  </section>
 
-    <div class="faq-list">
-      <details class="faq-item"><summary>Question 1?</summary><p>Answer 1</p></details>
-      <details class="faq-item"><summary>Question 2?</summary><p>Answer 2</p></details>
-      <details class="faq-item"><summary>Question 3?</summary><p>Answer 3</p></details>
-      <!-- Wiederhole bis Frage 25 -->
-      <details class="faq-item"><summary>Question 25?</summary><p>Answer 25</p></details>
+  <!-- FEATURES -->
+  <section>
+    <h2 class="section-title">✨ What you can do on EXP ✨</h2>
+    <div class="cards">
+      <!-- Cards hier -->
     </div>
   </section>
 
+  <!-- FINAL CTA -->
+  <section class="final">
+    <h2>Ready to join EXP?</h2>
+    <a class="join-btn" id="joinBottom">💬 JOIN DISCORD</a>
+  </section>
+
 </main>
+
+<footer>
+  © 2026 EXP. All rights reserved.
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+document.querySelectorAll("#joinTop,#joinBottom")
+  .forEach(b => b.href = DISCORD_INVITE);
+</script>
+
+<script>
+document.querySelectorAll(".count").forEach(counter => {
+  let target = +counter.dataset.target;
+  let value = 0;
+  let step = target / 120;
+  let interval = setInterval(() => {
+    value += step;
+    if(value >= target){
+      counter.textContent = target.toLocaleString();
+      clearInterval(interval);
+    } else {
+      counter.textContent = Math.floor(value).toLocaleString();
+    }
+  }, 20);
+});
+</script>
+
+<script>
+// SLIDE MENU TOGGLE
+const navToggle = document.getElementById("navToggle");
+const slideMenu = document.getElementById("slideMenu");
+const closeMenu = document.getElementById("closeMenu");
+
+navToggle.addEventListener("click", ()=> slideMenu.classList.add("show"));
+closeMenu.addEventListener("click", ()=> slideMenu.classList.remove("show"));
+</script>
 
 </body>
 </html>
