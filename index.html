@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>EXP — Official Discord</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5865F2">
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -48,12 +49,13 @@ for (let i = 0; i < 40; i++) {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="logo">💎 EXP</div>
+  <div class="logo">💎 EXP<span class="server-sub">Official EXP • Discord Community</span></div>
+  <p class="hero-desc muted">Join our active community for events, giveaways and support.</p>
   <div class="stats">
     <span>💎 <span class="count" data-target="75000000000">0</span> Gems Daily</span>
     <span>👥 <span class="count" data-target="25000">0</span> Members</span>
   </div>
-  <a class="join-btn" id="joinTop">🚀 JOIN DISCORD</a>
+  <a class="join-btn" id="joinTop" role="button" aria-label="Join EXP Discord">🚀 JOIN DISCORD</a>
 </section>
 
 <!-- FEATURES -->
@@ -153,8 +155,15 @@ const navToggle=document.getElementById("navToggle");
 const slideMenu=document.getElementById("slideMenu");
 const closeMenu=document.getElementById("closeMenu");
 
-navToggle.addEventListener("click",()=>slideMenu.classList.add("show"));
-closeMenu.addEventListener("click",()=>slideMenu.classList.remove("show"));
+// toggle menu and keep ARIA state in sync
+navToggle.addEventListener("click",()=>{
+  const showing = slideMenu.classList.toggle("show");
+  navToggle.setAttribute('aria-expanded', showing ? 'true' : 'false');
+});
+closeMenu.addEventListener("click",()=>{
+  slideMenu.classList.remove("show");
+  navToggle.setAttribute('aria-expanded','false');
+});
 </script>
 
 </body>

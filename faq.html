@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>EXP — FAQ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5865F2">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,10 +13,15 @@
   <img src="IMG_1646.webp" alt="EXP Logo">
 </header>
 
+<!-- quick join CTA top-right for convenience -->
+<div class="nav-right" style="position:fixed;top:18px;right:18px;z-index:40">
+  <a class="join-btn" id="joinFaq" href="#" role="button" aria-label="Join EXP Discord">💬 JOIN DISCORD</a>
+</div>
+
 <main class="container">
 
   <!-- BACK BUTTON -->
-  <button class="back-btn" onclick="window.location.href='index.html'">← Back to Main Page</button>
+  <a class="back-btn" href="index.html" aria-label="Back to main page">← Back to Main Page</a>
 
   <section class="faq">
     <h2 class="section-title">❓ Frequently Asked Questions</h2>
@@ -159,3 +165,20 @@
 
 </body>
 </html>
+
+<script>
+// Invite link and accessible FAQ toggles
+const DISCORD_INVITE = "https://discord.gg/exp";
+document.getElementById('joinFaq').href = DISCORD_INVITE;
+
+document.querySelectorAll('.faq-item').forEach(d => {
+  const summary = d.querySelector('summary');
+  // reflect state for screen readers
+  d.addEventListener('toggle', ()=>{
+    const expanded = d.open ? 'true' : 'false';
+    summary.setAttribute('aria-expanded', expanded);
+  });
+  // initialize
+  summary.setAttribute('aria-expanded', d.open ? 'true' : 'false');
+});
+</script>
