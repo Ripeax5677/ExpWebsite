@@ -202,3 +202,13 @@ footer{
 
 /* reveal tweaks */
 .reveal{will-change:opacity,transform}
+
+/* Interest page helpers */
+.calc .big-balance{font-size:34px;font-weight:900;margin-top:12px}
+.chart-wrap{margin-top:18px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.00));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.chart-svg{width:100%;height:160px;display:block}
+.table-small{width:100%;border-collapse:collapse;margin-top:14px}
+.table-small th,.table-small td{padding:8px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px}
+.table-small th{text-align:left;color:var(--muted);font-weight:700}
+.progress-line{height:10px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 8px 30px var(--glow1);}
+.sample-note{font-size:13px;color:var(--muted);margin-top:8px}

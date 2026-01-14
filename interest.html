@@ -31,7 +31,7 @@
 
     <div class="form-row" style="margin-top:14px">
       <label for="amount">Amount</label>
-      <input id="amount" placeholder="z.B. 2b, 2500000, 3.5m" aria-label="Amount">
+      <input id="amount" placeholder="e.g. 2b, 2500000, 3.5m" aria-label="Amount">
 
       <label for="days">Days</label>
       <input id="days" type="number" min="1" value="30" aria-label="Days">
@@ -39,7 +39,30 @@
       <button id="calc">Calculate</button>
     </div>
 
-    <div id="output" class="result" aria-live="polite" style="display:none"></div>
+    <div id="output" class="result" aria-live="polite" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div class="muted-block">Balance</div>
+          <div class="big-balance" id="balanceDisplay">0</div>
+        </div>
+        <div style="width:40%">
+          <div class="muted-block">Progress</div>
+          <div class="progress-line" id="progressLine" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <svg class="chart-svg" id="chartSvg" viewBox="0 0 600 160" preserveAspectRatio="none">
+          <polyline fill="none" stroke="rgba(88,101,242,0.9)" stroke-width="2" id="chartLine" points="" />
+        </svg>
+        <div class="sample-note" id="sampleNote"></div>
+      </div>
+
+      <table class="table-small" id="dataTable" style="display:none">
+        <thead><tr><th>Day</th><th>Balance</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </article>
 
 </main>
@@ -87,17 +110,78 @@ function runCalc(e){
 
   const out = document.getElementById('output');
   out.style.display = 'block';
-  out.innerHTML = `
-    <div><strong>Start:</strong> ${formatNumber(principal)}</div>
-    <div><strong>Nach ${days} Tagen:</strong> ${formatNumber(final)}</div>
-    <div><strong>Ertrag:</strong> ${formatNumber(interest)}</div>
-    <div class="muted-block">Täglicher Zinssatz: 0.25% (0.0025) — Zinseszins angewendet</div>
-  `;
+
+  // animate counter
+  animateCounter('balanceDisplay', principal, final, 1200);
+
+  // progress line
+  const progress = Math.min(100, (final - principal) / Math.max(1, final) * 100);
+  document.getElementById('progressLine').style.width = Math.max(6, progress) + '%';
+
+  // prepare per-day data (limit rows if too many days)
+  const maxRows = 200;
+  let step = 1;
+  if(days > maxRows) step = Math.ceil(days / maxRows);
+  const data = [];
+  for(let d=0; d<=days; d++){
+    if(d % step !== 0 && d !== days) continue;
+    const val = principal * Math.pow(1 + dailyRate, d);
+    data.push({d, val});
+  }
+
+  // draw chart
+  drawChart(data);
+
+  // fill table
+  const table = document.getElementById('dataTable');
+  const tbody = table.querySelector('tbody');
+  tbody.innerHTML = '';
+  data.forEach(row=>{
+    const tr = document.createElement('tr');
+    const tdDay = document.createElement('td'); tdDay.textContent = row.d;
+    const tdBal = document.createElement('td'); tdBal.textContent = formatNumber(row.val);
+    tr.appendChild(tdDay); tr.appendChild(tdBal);
+    tbody.appendChild(tr);
+  });
+  table.style.display = 'table';
+  document.getElementById('sampleNote').textContent = days > maxRows ? `Showing every ${step} day(s) (${data.length} rows)` : '';
 }
 
 // helper to set join link if needed
 const joinFaq = document.getElementById('joinFaq');
 if(joinFaq) joinFaq.href = DISCORD_INVITE;
+
+// draw simple svg chart from data array [{d,val}]
+function drawChart(data){
+  const svg = document.getElementById('chartSvg');
+  const w = 600, h = 160;
+  if(!data.length) return;
+  const vals = data.map(x=>x.val);
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const norm = v => {
+    if(max === min) return h/2;
+    return h - ((v - min)/(max - min))*(h-20) - 10;
+  };
+  const stepX = w / Math.max(1, data.length-1);
+  const points = data.map((pt,i)=>{return `${(i*stepX).toFixed(2)},${norm(pt.val).toFixed(2)}`}).join(' ');
+  document.getElementById('chartLine').setAttribute('points', points);
+}
+
+// animate numeric counter
+function animateCounter(id, from, to, duration){
+  const el = document.getElementById(id);
+  const start = performance.now();
+  const r = () => {
+    const now = performance.now();
+    const t = Math.min(1, (now-start)/duration);
+    const cur = from + (to-from)*easeOutCubic(t);
+    el.textContent = formatNumber(cur);
+    if(t < 1) requestAnimationFrame(r);
+  };
+  requestAnimationFrame(r);
+}
+function easeOutCubic(t){return 1 - Math.pow(1-t,3)}
 </script>
 
 </body>
