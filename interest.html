@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#5865F2">
+  <title>EXP — Interest Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calc{max-width:760px;margin:70px auto;padding:26px;border-radius:14px}
+    .form-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .form-row input, .form-row button, .form-row select{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);min-width:160px}
+    .result{margin-top:18px;padding:14px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .muted-block{color:var(--muted);font-size:13px;margin-top:6px}
+  </style>
+</head>
+<body>
+
+<header class="top-logo">
+  <img src="IMG_1646.webp" alt="EXP Logo">
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="logo">💎 EXP<span class="server-sub">Interest Calculator</span></div>
+  </section>
+
+  <article class="card calc">
+    <h2 style="margin-top:0">Interest Calculator — 0.25% daily</h2>
+    <p class="muted-block">Enter the number of diamonds (e.g. 2b for 2,000,000,000) and the number of days.</p>
+
+    <div class="form-row" style="margin-top:14px">
+      <label for="amount">Amount</label>
+      <input id="amount" placeholder="z.B. 2b, 2500000, 3.5m" aria-label="Amount">
+
+      <label for="days">Days</label>
+      <input id="days" type="number" min="1" value="30" aria-label="Days">
+
+      <button id="calc">Calculate</button>
+    </div>
+
+    <div id="output" class="result" aria-live="polite" style="display:none"></div>
+  </article>
+
+</main>
+
+  <footer style="text-align:center;color:var(--muted);margin:40px 0">© 2026 EXP</footer>
+
+<script>
+const DISCORD_INVITE = "https://discord.gg/exp";
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('calc').addEventListener('click',runCalc);
+});
+
+function parseAmount(s){
+  if(!s) return 0;
+  s = String(s).trim().toLowerCase().replace(/,/g,'');
+  const suffix = s.slice(-1);
+  if(['k','m','b','t'].includes(suffix)){
+    const num = parseFloat(s.slice(0,-1));
+    if(isNaN(num)) return 0;
+    const map = {k:1e3,m:1e6,b:1e9,t:1e12};
+    return num * map[suffix];
+  }
+  const val = parseFloat(s);
+  return isNaN(val)?0:val;
+}
+
+function formatNumber(n){
+  if(!isFinite(n)) return n;
+  if(n>=1e9) return (n/1e9).toFixed(3).replace(/\.0+$/,'') + 'b';
+  if(n>=1e6) return (n/1e6).toFixed(3).replace(/\.0+$/,'') + 'm';
+  return Math.round(n).toLocaleString();
+}
+
+function runCalc(e){
+  const amtStr = document.getElementById('amount').value;
+  const days = Math.max(1, Math.floor(Number(document.getElementById('days').value) || 0));
+  const principal = parseAmount(amtStr);
+  const dailyRate = 0.25/100; // 0.25%
+  if(principal<=0){
+    show('Please enter a valid amount.');
+    return;
+  }
+  const final = principal * Math.pow(1 + dailyRate, days);
+  const interest = final - principal;
+
+  const out = document.getElementById('output');
+  out.style.display = 'block';
+  out.innerHTML = `
+    <div><strong>Start:</strong> ${formatNumber(principal)}</div>
+    <div><strong>Nach ${days} Tagen:</strong> ${formatNumber(final)}</div>
+    <div><strong>Ertrag:</strong> ${formatNumber(interest)}</div>
+    <div class="muted-block">Täglicher Zinssatz: 0.25% (0.0025) — Zinseszins angewendet</div>
+  `;
+}
+
+// helper to set join link if needed
+const joinFaq = document.getElementById('joinFaq');
+if(joinFaq) joinFaq.href = DISCORD_INVITE;
+</script>
+
+</body>
+</html>
